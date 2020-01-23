@@ -9,6 +9,7 @@ import com.bridgelabz.fundooappbackend.user.exception.custom.ForgotPasswordExcep
 import com.bridgelabz.fundooappbackend.user.exception.custom.InputNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.LabelNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.LoginException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.NoteNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.RegistrationExcepton;
 import com.bridgelabz.fundooappbackend.user.exception.custom.TokenException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.UserNotFoundException;
@@ -84,5 +85,11 @@ public class Globalexception
 	public ResponseEntity<Response> labelNotFoundException(Exception e) 
 	{
 		return new ResponseEntity<Response>(new Response(Messages.LABEL_NOT_FOUND, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(NoteNotFoundException.class)
+	public ResponseEntity<Response> noteNotFoundException(Exception e) 
+	{
+		return new ResponseEntity<Response>(new Response(Messages.NOTE_NOT_FOUND, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

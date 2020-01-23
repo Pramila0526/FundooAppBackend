@@ -1,5 +1,8 @@
 package com.bridgelabz.fundooappbackend.note.service;
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.web.bind.annotation.RequestHeader;
 import com.bridgelabz.fundooappbackend.note.dto.NoteDto;
 import com.bridgelabz.fundooappbackend.note.model.Note;
@@ -18,4 +21,6 @@ public interface NoteService {
 	//public List<Note> showUserNotes(int id,String token);
 	public List<Note> getAllNotes(@RequestHeader String token);
 	public List<Note> sortByDescription(String token);
+	public Responses pinAndUnpin( int id,String token);
+
 }

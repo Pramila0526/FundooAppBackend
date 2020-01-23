@@ -55,6 +55,12 @@ public class Note implements Serializable {
 	@UpdateTimestamp
 	private Date noteUpdatedDate;
 
+	private boolean pin;
+	
+	private boolean trash;
+	
+	private boolean archieve;
+
 	public int getId() {
 		return id;
 	}
@@ -103,8 +109,47 @@ public class Note implements Serializable {
 		this.noteRegistrationDate = noteRegistrationDate;
 	}
 
+	public Date getNoteUpdatedDate() {
+		return noteUpdatedDate;
+	}
+
+	public void setNoteUpdatedDate(Date noteUpdatedDate) {
+		this.noteUpdatedDate = noteUpdatedDate;
+	}
+
+	public boolean isPin() {
+		return pin;
+	}
+
+	public void setPin(boolean pin) {
+		this.pin = pin;
+	}
+
+	public boolean isTrash() {
+		return trash;
+	}
+
+	public void setTrash(boolean trash) {
+		this.trash = trash;
+	}
+
+	public boolean isArchieve() {
+		return archieve;
+	}
+
+	public void setArchieve(boolean archieve) {
+		this.archieve = archieve;
+	}
+
+	@Override
+	public String toString() {
+		return "Note [id=" + id + ", title=" + title + ", description=" + description + ", user=" + user + ", labels="
+				+ labels + ", noteRegistrationDate=" + noteRegistrationDate + ", noteUpdatedDate=" + noteUpdatedDate
+				+ ", pin=" + pin + ", trash=" + trash + ", archieve=" + archieve + "]";
+	}
+
 	public Note(int id, @NotNull String title, @NotNull String description, User user, List<Label> labels,
-			@NotNull Date noteRegistrationDate) {
+			Date noteRegistrationDate, Date noteUpdatedDate, boolean pin, boolean trash, boolean archieve) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -112,17 +157,14 @@ public class Note implements Serializable {
 		this.user = user;
 		this.labels = labels;
 		this.noteRegistrationDate = noteRegistrationDate;
+		this.noteUpdatedDate = noteUpdatedDate;
+		this.pin = pin;
+		this.trash = trash;
+		this.archieve = archieve;
 	}
 
 	public Note() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	@Override
-	public String toString() {
-		return "Note [id=" + id + ", title=" + title + ", description=" + description + ", user=" + user + ", labels="
-				+ labels + ", noteRegistrationDate=" + noteRegistrationDate + "]";
-	}
-
 }

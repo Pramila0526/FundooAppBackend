@@ -13,7 +13,7 @@ import com.bridgelabz.fundooappbackend.note.message.Messages;
 import com.bridgelabz.fundooappbackend.note.model.Note;
 import com.bridgelabz.fundooappbackend.note.repository.NotesRepository;
 import com.bridgelabz.fundooappbackend.note.response.Responses;
-import com.bridgelabz.fundooappbackend.user.exception.custom.NoteNOTFoundException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.NoteNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.UserNotFoundException;
 /*********************************************************************************************************
  * @author 	:Pramila Mangesh Tawari
@@ -53,7 +53,7 @@ public class CollaborateServiceImplementation implements CollaborateService {
 
 		Note note = noteRepository.findById(collaboratorDto.getNoteId());
 		if (note == null) {
-			throw new NoteNOTFoundException(CollaborateMessages.NOTE_NOT_FOUND);
+			throw new NoteNotFoundException(CollaborateMessages.NOTE_NOT_FOUND);
 		}
 
 		javaMailSender.send(NoteMessageUtility.sendMail(collaborator.getSenderMail(), collaboratorDto.getReceiverMail(),

@@ -77,6 +77,7 @@ public class UserServiceImplementation implements UserService {
 			return new Response(Messages.BAD_REQUEST, "User Registration Completed ", Messages.EMAIL_ALREADY_REGISTERED);
 		}  
 			user.setPassword(passwordEncoder.encode(regdto.getPassword()));
+			
 			System.out.println(user);
 			user = repository.save(user); // Storing Users Data in Database
       			
@@ -121,10 +122,10 @@ public class UserServiceImplementation implements UserService {
 		}
 	}
 
-	/**
-	 * @return User Login Method :- Login the Authenticated User
-	 *
-	 ***********************************************************************************************/
+/**
+ * @return User Login Method :- Login the Authenticated User
+ *
+ ***********************************************************************************************/
 	public Response loginUser(LoginDto logindto) 
 	{
 		User user = repository.findByEmail(logindto.getEmail()); // find email present or not
@@ -153,11 +154,11 @@ public class UserServiceImplementation implements UserService {
 		return new Response(Messages.BAD_REQUEST, "User Registrtion ", Messages.LOGIN_UNSUCCESSFUL);
 	}
 	
-	/**
-	 * @return Forgot Passwrod Method :- In Case if Password is not remebering then
-	 *         we can recover it by sending token to the email id.
-	 *
-	 */
+/**
+ * @return Forgot Passwrod Method :- In Case if Password is not remebering then
+ *         we can recover it by sending token to the email id.
+ *
+ **********************************************************************************************/
 	public Response forgotPassword(ForgotPasswordDto forgetPasswordDto) 
 	{
 		User user = repository.findByEmail(forgetPasswordDto.getEmail()); // find by user email id
@@ -180,10 +181,10 @@ public class UserServiceImplementation implements UserService {
 		return new Response(Messages.OK, null, Messages.EMAIL_VERIFIED);
 	}
 
-	/**
-	 * @return Update User Method :- Updating the user account by new Information
-	 *
-	 */
+/**
+ * @return Update User Method :- Updating the user account by new Information
+ *
+ **********************************************************************************************/
 	public String updateUserByEmail(User user, String email) 
 	{
 		User updateUser = repository.findByEmail(email);
@@ -193,10 +194,10 @@ public class UserServiceImplementation implements UserService {
 		return Messages.USER_UPDATE_SUCCESSFULLY;
 	}
 
-	/**
-	 * @return Set Password Method :- Changing the Password
-	 *
-	 */
+/**
+ * @return Set Password Method :- Changing the Password
+ *
+ *********************************************************************************************/
 	public Response setPassword(ResetPasswordDto setPasswordDto, String token) 
 	{
 		String useremail = tokenutility.getUserToken(token);

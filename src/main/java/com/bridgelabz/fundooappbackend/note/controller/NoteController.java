@@ -85,10 +85,25 @@ public class NoteController
 	{
 		return new Response(Messages.OK,null,notesServiceImplementation.sortByDate(token));
 	}
+    
+    @GetMapping("/pinunpin/{id}")
+	public Response pinAndUnpin( @PathVariable int id,@RequestHeader String token) 
+	{
+		return new Response(Messages.OK,null,notesServiceImplementation.pinAndUnpin(id,token));
+	}
+    
+    @GetMapping("/archieve/{id}")
+	public Response archieve( @PathVariable int id,@RequestHeader String token) 
+	{
+		return new Response(Messages.OK,null,notesServiceImplementation.archieve(id,token));
+	}
+    
+    @GetMapping("/trash/{id}")
+	public Response trash( @PathVariable int id,@RequestHeader String token) 
+	{
+		return new Response(Messages.OK,null,notesServiceImplementation.trash(id,token));
+	}
 }
-
-
-
 
 
 /*
