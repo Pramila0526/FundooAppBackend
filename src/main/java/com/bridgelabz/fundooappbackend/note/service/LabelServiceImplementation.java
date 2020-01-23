@@ -1,6 +1,9 @@
 package com.bridgelabz.fundooappbackend.note.service;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +13,8 @@ import com.bridgelabz.fundooappbackend.note.model.Label;
 import com.bridgelabz.fundooappbackend.note.repository.LabelRepository;
 import com.bridgelabz.fundooappbackend.note.response.Responses;
 import com.bridgelabz.fundooappbackend.note.utility.TokensUtility;
+import com.bridgelabz.fundooappbackend.user.exception.custom.InputNotFoundException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.LabelNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.TokenException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.UserNotFoundException;
 import com.bridgelabz.fundooappbackend.user.model.User;
@@ -42,15 +47,27 @@ public class LabelServiceImplementation implements LabelService {
 *************************************************************************************************/
 	public Responses addLabel(LabelDto labelDto,String token) 
 	{
-		Label label = mapper.map(labelDto, Label.class); // Mapping new User data into the user Class
-		String userToken = tokenUtility.getUserToken(token); 
-		User user = repository.findByEmail(userToken);
+		// If Name field is Empty then throw exception
+		if(labelDto.getName().isEmpty())
+		{
+			throw new InputNotFoundException(Messages.INPUT_NOT_FOUND);
+		}
+		
+		Label label = mapper.map(labelDto, Label.class); 
+		
+		String userEmail = tokenUtility.getUserToken(token); 
+		
+		User user = repository.findByEmail(userEmail);
+		
 		if(user ==  null)
 		{
-			throw new UserNotFoundException(Messages.USER_NOT_EXISTING);
+			throw new UserNotFoundException(Messages.USER_NOT_FOUND);
 		}
+		
 		label.setUser(user);
-		label = labelRepository.save(label); // Storing Users Data in Database
+		
+		labelRepository.save(label); // Storing Label Data in Database
+		
 		return new Responses(Messages.OK, null, Messages.LABEL_CREATED);
 	}
 	
@@ -58,15 +75,38 @@ public class LabelServiceImplementation implements LabelService {
 *     @return  Function to upadte Label
 *
 *************************************************************************************************/
-	public Responses updateLabel(UpdateLabelDto updateLabelDto, String token) 
+	public Responses updateLabel(@Valid int id,LabelDto updateLabelDto, String token) 
 	{
-		Label label = mapper.map(updateLabelDto, Label.class);
-		String userToken = tokenUtility.getUserToken(token);
-		User user = repository.findByEmail(userToken);	
-		label.setUser(user);
-		updateLabelDto.setId(updateLabelDto.getId());
+		// If Name field is Empty then throw exception
+		if(updateLabelDto.getName().isEmpty())
+		{
+			throw new InputNotFoundException(Messages.INPUT_NOT_FOUND);
+		}
+		
+		//Label label = mapper.map(updateLabelDto, Label.class);
+		
+		String userEmail = tokenUtility.getUserToken(token);
+		
+		User user = repository.findByEmail(userEmail);	
+		
+		if(user ==  null)
+		{
+			throw new UserNotFoundException(Messages.USER_NOT_FOUND);
+		}
+		
+		Label labelUpdate = labelRepository.findById(id);
+		
+		if( labelUpdate == null)
+		{
+			throw new  LabelNotFoundException(Messages.LABEL_NOT_FOUND);
+		}
+				
+		labelUpdate.setName(updateLabelDto.getName());
+		
 		updateLabelDto.setName(updateLabelDto.getName());
-		label = labelRepository.save(label);
+		
+		labelRepository.save(labelUpdate);
+		
 		return new Responses(Messages.OK, null, Messages.LABEL_UPDATED);
 	}
 
@@ -78,10 +118,30 @@ public class LabelServiceImplementation implements LabelService {
 	{
 		//Note note = mapper.map(deleteNoteDto, Note.class); // Mapping new User data into the user Class
 		String userToken = tokenUtility.getUserToken(token); 
+		
+		if (userToken.isEmpty())
+		{
+				throw new TokenException(Messages.INVALID_TOKEN);
+		}
+		
 		User user = repository.findByEmail(userToken);
+		
+		if(user ==  null)
+		{
+			throw new UserNotFoundException(Messages.USER_NOT_FOUND);
+		}
+		
 		Label label = labelRepository.findById(id);
-		label.setUser(user);
+		
+		if( label == null)
+		{
+			throw new  LabelNotFoundException(Messages.LABEL_NOT_FOUND);
+		}
+		
+	//	label.setUser(user);
+		
 		labelRepository.delete(label);
+		
 		return new Responses(Messages.OK, null, Messages.LABEL_DELETED);
 	}
 
@@ -91,13 +151,27 @@ public class LabelServiceImplementation implements LabelService {
 *************************************************************************************************/
 	public Responses findLabel(int id, String token) {
 		String userToken = tokenUtility.getUserToken(token);
+		
 		if (userToken.isEmpty())
 		{
 				throw new TokenException(Messages.INVALID_TOKEN);
 		}
+		
 		User user = repository.findByEmail(userToken);
+		
+		if(user ==  null)
+		{
+			throw new UserNotFoundException(Messages.USER_NOT_FOUND);
+		}
+		
 		Label label = labelRepository.findById(id);
-		label.setUser(user);
+	//	label.setUser(user);
+	
+		if( label == null)
+		{
+			throw new  LabelNotFoundException(Messages.LABEL_NOT_FOUND);
+		}
+		
 		return new Responses(Messages.OK, "User Registration ", labelRepository.findById(id));
 	}
 	
@@ -108,13 +182,20 @@ public class LabelServiceImplementation implements LabelService {
 	public List<Label> getAllLabels(String token)
 	{
 		String userToken = tokenUtility.getUserToken(token);
+		
 		if (userToken.isEmpty())
 		{
 				throw new TokenException(Messages.INVALID_TOKEN);
 		}
 		User user = repository.findByEmail(userToken);
 		
+		if(user ==  null)
+		{
+			throw new UserNotFoundException(Messages.USER_NOT_FOUND);
+		}
+		
 		List<Label> label = labelRepository.findAll().stream().filter(e -> e.getUser().getId() == user.getId()).collect(Collectors.toList());
+		
 		return label;
 	}
 }

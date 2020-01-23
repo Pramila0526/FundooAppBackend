@@ -59,4 +59,13 @@ public class Messages {
 	public static final String NOTE_UPDATED = "Note updated Successfully";
 
 	public static final Object NOTE_DELETED = "Note Deleted";
+	
+	// For Labels
+	
+	public static final String INPUT_NOT_FOUND = "Please Fill All the Fields";
+	
+	public static final String LABEL_NOT_FOUND = "Label Not Found";
+
+	
+	
 }

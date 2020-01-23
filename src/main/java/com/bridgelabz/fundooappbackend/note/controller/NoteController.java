@@ -1,4 +1,6 @@
 package com.bridgelabz.fundooappbackend.note.controller;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,9 +46,9 @@ public class NoteController
     
     // Updating a Note
     @PutMapping("/updatenote/{id}")
-  	public ResponseEntity<Responses> updateNote(@PathVariable int id,@RequestBody NoteDto updateNoteDto,@RequestHeader String token)
+  	public ResponseEntity<Responses> updateNote(@Valid @PathVariable int id,@RequestBody NoteDto updateNoteDto,@RequestHeader String token)
   	{
-  		return new ResponseEntity<Responses>(notesServiceImplementation.updateNote(updateNoteDto, token), HttpStatus.OK); // give response for user 200
+  		return new ResponseEntity<Responses>(notesServiceImplementation.updateNote(id,updateNoteDto, token), HttpStatus.OK); // give response for user 200
   	}
     
     // Delete a Note
@@ -55,20 +57,6 @@ public class NoteController
   	{
   		return new ResponseEntity<Responses>(notesServiceImplementation.deleteNote(id, token), HttpStatus.OK); // give response for user 200
   	}
-    
-    // Finding a note
-    @GetMapping("/findnote/{id}")
-	public ResponseEntity<Responses> findNote(@PathVariable int id, @RequestHeader String token) 
-	{
-		return new ResponseEntity<Responses>(notesServiceImplementation.findNote(id,token), HttpStatus.OK);
-	}
-    
-    // Displaying all the notes of particular user
-    @GetMapping("/showallnotes/{id}")
-	public Response showUserNotes(@PathVariable int id,@RequestHeader String token) 
-	{
-		return new Response(Messages.OK,null,notesServiceImplementation.showUserNotes(id,token));
-	}
     
     // Getting all Notes
     @GetMapping("/getallnotes")
@@ -98,3 +86,23 @@ public class NoteController
 		return new Response(Messages.OK,null,notesServiceImplementation.sortByDate(token));
 	}
 }
+
+
+
+
+
+/*
+ * //Finding a note
+ * 
+ * @GetMapping("/findnote/{id}") public ResponseEntity<Responses>
+ * findNote(@PathVariable int id, @RequestHeader String token) { return new
+ * ResponseEntity<Responses>(notesServiceImplementation.findNote(id,token),
+ * HttpStatus.OK); }
+ * 
+ * // Displaying all the notes of particular user
+ * 
+ * @GetMapping("/showallnotes/{id}") public Response showUserNotes(@PathVariable
+ * int id,@RequestHeader String token) { return new
+ * Response(Messages.OK,null,notesServiceImplementation.showUserNotes(id,token))
+ * ; }
+ */

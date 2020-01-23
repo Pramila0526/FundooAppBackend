@@ -12,10 +12,10 @@ import com.bridgelabz.fundooappbackend.note.response.Responses;
  ***********************************************************************************************************/
 public interface NoteService {
 	public Responses addNewNote(NoteDto noteDto,String token);
-	public Responses updateNote(NoteDto updateNoteDto, String token); 
+	public Responses updateNote(int id,NoteDto updateNoteDto, String token); 
 	public Responses deleteNote(int id, String token); 
-	public Responses findNote(int id,String token);
-	public List<Note> showUserNotes(int id,String token);
+	//public Responses findNote(int id,String token);
+	//public List<Note> showUserNotes(int id,String token);
 	public List<Note> getAllNotes(@RequestHeader String token);
 	public List<Note> sortByDescription(String token);
 }

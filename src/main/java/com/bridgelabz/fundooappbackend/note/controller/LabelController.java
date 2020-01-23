@@ -1,4 +1,6 @@
 package com.bridgelabz.fundooappbackend.note.controller;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,10 +46,10 @@ public class LabelController {
 	  	}
 	 
 	 // Updateing Label
-	 @PutMapping("/updatelabel")
-	  	public ResponseEntity<Responses> updateLabel(@RequestBody UpdateLabelDto updateLabelDto,@RequestHeader String token)
+	 @PutMapping("/updatelabel/{id}")
+	  	public ResponseEntity<Responses> updateLabel(@Valid @PathVariable int id,@RequestBody LabelDto updateLabelDto,@RequestHeader String token)
 	  	{
-	  		return new ResponseEntity<Responses>(labelServiceImplementation.updateLabel(updateLabelDto, token), HttpStatus.OK); // give response for user 200
+	  		return new ResponseEntity<Responses>(labelServiceImplementation.updateLabel(id,updateLabelDto, token), HttpStatus.OK); // give response for user 200
 	  	}
 	 
 	 // Deleting Label

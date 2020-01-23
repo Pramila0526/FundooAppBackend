@@ -24,6 +24,8 @@ public class Messages {
 		public static final String NOTE_UPDATED = "Note updated Successfully!!";
 
 		public static final String NOTE_DELETED = "Note Deleted";
+		
+		public static final String NOTE_NOT_FOUND= "Note not Found";
 
 		// For Labels
 		public static final String LABEL_CREATED = "Label created Successfully!!";
@@ -31,9 +33,17 @@ public class Messages {
 		public static final String LABEL_UPDATED = "Label updated Successfully!!";
 
 		public static final String LABEL_DELETED = "Label Deleted";
+		
+		public static final String INPUT_NOT_FOUND = "Please Fill All the Details";
+		
+		public static final String LABEL_NOT_FOUND = "Label not found";
+		
+		
 
 		//  For users
 		public static final String USER_NOT_EXISTING = "User Doesn't Exists";
+		
+		public static final String USER_NOT_FOUND = "User Not Found";
 		
 	//  For collaboration
 			public static final String PING = "Note Pinged!";

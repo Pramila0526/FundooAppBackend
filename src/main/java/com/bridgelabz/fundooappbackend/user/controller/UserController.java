@@ -20,7 +20,7 @@ import com.bridgelabz.fundooappbackend.user.response.Response;
 import com.bridgelabz.fundooappbackend.user.service.UserServiceImplementation;
 
 /**********************************************************************************************************
- * @author 	:Pramila Tawari 
+ * @author 	:Pramila Mangesh Tawari 
  * Purpose	:The controller invokes a business class to process business-related tasks, 
  * 			 and then redirects the client to a logical view name, which is resolved by 
  * 			 Spring’s dispatcher servlet in order to render results or output. That completes 
@@ -64,7 +64,7 @@ public class UserController
 	}
 	
 	// API for Login the user from Database.
-	@GetMapping("/login")
+	@PostMapping("/login")
 	public ResponseEntity<Response> loginUser(@RequestBody LoginDto logindto)
 	{
 		return new ResponseEntity<Response>(userServiceImp.loginUser(logindto), HttpStatus.OK);

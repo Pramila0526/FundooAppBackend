@@ -6,6 +6,8 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import com.bridgelabz.fundooappbackend.user.exception.custom.ForgotPasswordException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.InputNotFoundException;
+import com.bridgelabz.fundooappbackend.user.exception.custom.LabelNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.LoginException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.RegistrationExcepton;
 import com.bridgelabz.fundooappbackend.user.exception.custom.TokenException;
@@ -70,5 +72,17 @@ public class Globalexception
 	public ResponseEntity<Response> missingServletRequestParameterException(Exception e) 
 	{
 		return new ResponseEntity<Response>(new Response(Messages.ENTER_EMAIL, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(InputNotFoundException.class)
+	public ResponseEntity<Response> inputNotFoundException(Exception e) 
+	{
+		return new ResponseEntity<Response>(new Response(Messages.INPUT_NOT_FOUND, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+	
+	@ExceptionHandler(LabelNotFoundException.class)
+	public ResponseEntity<Response> labelNotFoundException(Exception e) 
+	{
+		return new ResponseEntity<Response>(new Response(Messages.LABEL_NOT_FOUND, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
