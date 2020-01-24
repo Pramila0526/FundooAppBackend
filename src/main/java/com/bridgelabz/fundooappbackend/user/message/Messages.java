@@ -8,6 +8,9 @@ package com.bridgelabz.fundooappbackend.user.message;
  *********************************************************************************************************/
 
 public class Messages {
+	
+	public static final int UNAUTHORIZED_CLIENT =401;
+
 
 	public static final String EMAIL_ALREADY_REGISTERED = "Email Id is Already Registered, Please try with other Email";
 	
@@ -47,11 +50,11 @@ public class Messages {
 	public static final String VERIFY_MAIL= "Verified";
 	
 	// Status Code
-	public static final String OK = "200";
+	public static final int OK = 200;
 	
-	public static final String BAD_REQUEST = "400";
+	public static final int BAD_REQUEST = 400;
 	
-	public static final String NOT_FOUND = "404";
+	public static final int NOT_FOUND = 404;
 	
 	// For Notes
 	public static final String NOTE_CREATED = "Notes created Successfully";

@@ -27,5 +27,5 @@ public interface UserService
 	
 	public List<User> showAllUsers(String token);  // To display All the users
 	
-	public Response findUser(String token);    // For the particular user
+	public Response findUser(int id,String token);    // For the particular user
 }

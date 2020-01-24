@@ -223,7 +223,7 @@ public class UserServiceImplementation implements UserService {
  * @return Find User :- Particular user's data by the token
  *
  *******************************************************************************************/
-	public Response findUser(String token) 
+	public Response findUser(int id,String token) 
 	{
 		String email = tokenutility.getUserToken(token);
 		if (email.isEmpty())

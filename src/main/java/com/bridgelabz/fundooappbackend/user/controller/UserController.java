@@ -1,9 +1,11 @@
 package com.bridgelabz.fundooappbackend.user.controller;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.bridgelabz.fundooappbackend.user.dto.ForgotPasswordDto;
 import com.bridgelabz.fundooappbackend.user.dto.LoginDto;
 import com.bridgelabz.fundooappbackend.user.dto.RegistrationDto;
@@ -72,11 +75,10 @@ public class UserController
 	
 	// API for recovering in case of forgotton password 
 	@PostMapping("/forgotpassword")
-	public String findEmail(@RequestBody  ForgotPasswordDto forgetPasswordDto) 
+	public ResponseEntity<Response> findEmail(@RequestBody  ForgotPasswordDto forgetPasswordDto) 
 	{
 
-		userServiceImp.forgotPassword(forgetPasswordDto);
-		return Messages.MAIL_SENT;
+		return new ResponseEntity<Response>(userServiceImp.forgotPassword(forgetPasswordDto), HttpStatus.OK);
 	}
 	
 	// API for setting new Password
@@ -89,10 +91,10 @@ public class UserController
 	}
 	
 	// API for finding a particular user
-	@GetMapping("/finduser")
-	public ResponseEntity<Response> findUser(@RequestHeader String token) 
+	@GetMapping("/finduser/{id}")
+	public ResponseEntity<Response> findUser(@PathVariable int id,@RequestHeader String token) 
 	{
-		return new ResponseEntity<Response>(userServiceImp.findUser(token), HttpStatus.OK);
+		return new ResponseEntity<Response>(userServiceImp.findUser(id,token), HttpStatus.OK);
 	}
 	
 	// API to show all Users

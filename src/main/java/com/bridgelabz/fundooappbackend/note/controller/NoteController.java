@@ -1,6 +1,5 @@
 package com.bridgelabz.fundooappbackend.note.controller;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.fundooappbackend.note.dto.NoteDto;
-import com.bridgelabz.fundooappbackend.note.response.Responses;
+import com.bridgelabz.fundooappbackend.note.noteresponse.Response;
 import com.bridgelabz.fundooappbackend.note.service.NoteServiceImplementation;
 import com.bridgelabz.fundooappbackend.user.message.Messages;
-import com.bridgelabz.fundooappbackend.user.response.Response;
 /*********************************************************************************************************
  * @author 	:Pramila Mangesh Tawari
  * Purpose	:Notes Controller For Generating API's
@@ -39,23 +37,23 @@ public class NoteController
       
       // Adding New Note
     @PostMapping("/addnewnote")
-  	public ResponseEntity<Responses> addNewNote(@RequestBody NoteDto noteDto,@RequestHeader String token)
+  	public ResponseEntity<Response> addNewNote(@RequestBody NoteDto noteDto,@RequestHeader String token)
   	{
-  		return new ResponseEntity<Responses>(notesServiceImplementation.addNewNote(noteDto,token), HttpStatus.OK); // give response for user 200
+  		return new ResponseEntity<Response>(notesServiceImplementation.addNewNote(noteDto,token), HttpStatus.OK); // give response for user 200
   	}
     
     // Updating a Note
     @PutMapping("/updatenote/{id}")
-  	public ResponseEntity<Responses> updateNote(@Valid @PathVariable int id,@RequestBody NoteDto updateNoteDto,@RequestHeader String token)
+  	public ResponseEntity<Response> updateNote(@Valid @PathVariable int id,@RequestBody NoteDto updateNoteDto,@RequestHeader String token)
   	{
-  		return new ResponseEntity<Responses>(notesServiceImplementation.updateNote(id,updateNoteDto, token), HttpStatus.OK); // give response for user 200
+  		return new ResponseEntity<Response>(notesServiceImplementation.updateNote(id,updateNoteDto, token), HttpStatus.OK); // give response for user 200
   	}
     
     // Delete a Note
     @DeleteMapping("/{id}")
-  	public ResponseEntity<Responses> deleteNote(@PathVariable int id,@RequestHeader String token)
+  	public ResponseEntity<Response> deleteNote(@PathVariable int id,@RequestHeader String token)
   	{
-  		return new ResponseEntity<Responses>(notesServiceImplementation.deleteNote(id, token), HttpStatus.OK); // give response for user 200
+  		return new ResponseEntity<Response>(notesServiceImplementation.deleteNote(id, token), HttpStatus.OK); // give response for user 200
   	}
     
     // Getting all Notes

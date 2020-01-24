@@ -1,10 +1,6 @@
-package com.bridgelabz.fundooappbackend.user.response;
+package com.bridgelabz.fundooappbackend.note.noteresponse;
 import java.io.Serializable;
-/************************************************************************************************************************
- * @author 	:Pramila Tawari
- * Purpose 	:Response for Postman
- *
- *****************************************************************************************************************/
+
 public class Response implements Serializable
 {
 private static final long serialVersionUID = 1L;

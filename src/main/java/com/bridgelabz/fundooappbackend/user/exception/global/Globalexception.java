@@ -24,19 +24,19 @@ public class Globalexception
 	@ExceptionHandler(LoginException.class)
 	public ResponseEntity<Response> loginException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.OK, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.UNAUTHORIZED_CLIENT, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(RegistrationExcepton.class)
 	public ResponseEntity<Response> registrationExcepton(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.UNAUTHORIZED_CLIENT, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(TokenException.class)
 	public ResponseEntity<Response> tokenException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.UNAUTHORIZED_CLIENT, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(ValidationException.class)
@@ -48,7 +48,7 @@ public class Globalexception
 	@ExceptionHandler(ValidateUserException.class)
 	public ResponseEntity<Response> ValidateUserException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.UNAUTHORIZED_CLIENT, e.getMessage(), "Please Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@ExceptionHandler(ForgotPasswordException.class)
@@ -60,36 +60,36 @@ public class Globalexception
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<Response> methodArgumentNotValidException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.ENTER_EMAIL, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(UserNotFoundException.class)
 	public ResponseEntity<Response> userNotFoundException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.USER_NOT_EXISTING, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.UNAUTHORIZED_CLIENT, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(MissingServletRequestParameterException.class)
 	public ResponseEntity<Response> missingServletRequestParameterException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.ENTER_EMAIL, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(InputNotFoundException.class)
 	public ResponseEntity<Response> inputNotFoundException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.INPUT_NOT_FOUND, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(LabelNotFoundException.class)
 	public ResponseEntity<Response> labelNotFoundException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.LABEL_NOT_FOUND, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 	@ExceptionHandler(NoteNotFoundException.class)
 	public ResponseEntity<Response> noteNotFoundException(Exception e) 
 	{
-		return new ResponseEntity<Response>(new Response(Messages.NOTE_NOT_FOUND, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<Response>(new Response(Messages.BAD_REQUEST, e.getMessage(), "Try Again"), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

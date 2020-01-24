@@ -12,11 +12,11 @@ public class Messages {
 	public static final String INVALID_TOKEN = "Invalid Token**";
 	
 	// Status Code
-		public static final String OK = "200";
+		public static final int OK = 200;
 		
-		public static final String BAD_REQUEST = "400";
+		public static final int BAD_REQUEST = 400;
 		
-		public static final String NOT_FOUND = "404";
+		public static final int NOT_FOUND = 404;
 		
 		// For Notes
 		public static final String NOTE_CREATED = "Notes created Successfully!!";

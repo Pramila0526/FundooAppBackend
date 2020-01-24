@@ -13,10 +13,9 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.bridgelabz.fundooappbackend.note.dto.LabelDto;
-import com.bridgelabz.fundooappbackend.note.response.Responses;
+import com.bridgelabz.fundooappbackend.note.noteresponse.Response;
 import com.bridgelabz.fundooappbackend.note.service.LabelServiceImplementation;
 import com.bridgelabz.fundooappbackend.user.message.Messages;
-import com.bridgelabz.fundooappbackend.user.response.Response;
 /*********************************************************************************************************
  * @author 	:Pramila Mangesh Tawari
  * Purpose	:Label Controller for Generating API's
@@ -38,30 +37,30 @@ public class LabelController {
 	 
 	 // Adding Label
 	 @PostMapping("/addlabel")
-	  	public ResponseEntity<Responses> addLabel(@RequestBody LabelDto labelDto,@RequestHeader String token)
+	  	public ResponseEntity<Response> addLabel(@RequestBody LabelDto labelDto,@RequestHeader String token)
 	  	{
-	  		return new ResponseEntity<Responses>(labelServiceImplementation.addLabel(labelDto,token), HttpStatus.OK); // give response for user 200
+	  		return new ResponseEntity<Response>(labelServiceImplementation.addLabel(labelDto,token), HttpStatus.OK); // give response for user 200
 	  	}
 	 
 	 // Updateing Label
 	 @PutMapping("/updatelabel/{id}")
-	  	public ResponseEntity<Responses> updateLabel(@Valid @PathVariable int id,@RequestBody LabelDto updateLabelDto,@RequestHeader String token)
+	  	public ResponseEntity<Response> updateLabel(@Valid @PathVariable int id,@RequestBody LabelDto updateLabelDto,@RequestHeader String token)
 	  	{
-	  		return new ResponseEntity<Responses>(labelServiceImplementation.updateLabel(id,updateLabelDto, token), HttpStatus.OK); // give response for user 200
+	  		return new ResponseEntity<Response>(labelServiceImplementation.updateLabel(id,updateLabelDto, token), HttpStatus.OK); // give response for user 200
 	  	}
 	 
 	 // Deleting Label
 	 @DeleteMapping("/{id}")
-	  	public ResponseEntity<Responses> deleteLabel(@PathVariable int id,@RequestHeader String token)
+	  	public ResponseEntity<Response> deleteLabel(@PathVariable int id,@RequestHeader String token)
 	  	{
-	  		return new ResponseEntity<Responses>(labelServiceImplementation.deleteLabel(id, token), HttpStatus.OK); // give response for user 200
+	  		return new ResponseEntity<Response>(labelServiceImplementation.deleteLabel(id, token), HttpStatus.OK); // give response for user 200
 	  	}
 	 
 	 // Finding Label
 	 @GetMapping("/findlabel/{id}")
-		public ResponseEntity<Responses> findLabel(@PathVariable int id, @RequestHeader String token) 
+		public ResponseEntity<Response> findLabel(@PathVariable int id, @RequestHeader String token) 
 		{
-			return new ResponseEntity<Responses>(labelServiceImplementation.findLabel(id,token), HttpStatus.OK);
+			return new ResponseEntity<Response>(labelServiceImplementation.findLabel(id,token), HttpStatus.OK);
 		}
 	 
 	 // Getting All Labels

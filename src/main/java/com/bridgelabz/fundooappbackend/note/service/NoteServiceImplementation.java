@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.bridgelabz.fundooappbackend.note.dto.NoteDto;
 import com.bridgelabz.fundooappbackend.note.message.Messages;
 import com.bridgelabz.fundooappbackend.note.model.Note;
+import com.bridgelabz.fundooappbackend.note.noteresponse.Response;
 import com.bridgelabz.fundooappbackend.note.repository.NotesRepository;
-import com.bridgelabz.fundooappbackend.note.response.Responses;
 import com.bridgelabz.fundooappbackend.note.utility.TokensUtility;
 import com.bridgelabz.fundooappbackend.user.exception.custom.InputNotFoundException;
 import com.bridgelabz.fundooappbackend.user.exception.custom.NoteNotFoundException;
@@ -21,7 +21,8 @@ import com.bridgelabz.fundooappbackend.user.model.User;
 import com.bridgelabz.fundooappbackend.user.repository.UserRepository;
 
 /******************************************************************************************************************
- * @author :Pramila Mangesh Tawari Purpose :To perform Operations on Note
+ * @author :Pramila Mangesh Tawari 
+ * Purpose :To perform Operations on Note
  *
  *********************************************************************************************************/
 
@@ -44,11 +45,11 @@ public class NoteServiceImplementation implements NoteService {
 	@Autowired
 	private Environment environment;
 
-	/**
-	 * @return Function to add a New Note
-	 *
-	 *************************************************************************************************/
-	public Responses addNewNote(@Valid NoteDto noteDto, String token) {
+/**
+ * @return Function to add a New Note
+ *
+ *************************************************************************************************/
+	public Response addNewNote(@Valid NoteDto noteDto, String token) {
 
 		if (noteDto.getTitle().isEmpty() || noteDto.getDescription().isEmpty()
 				|| (noteDto.getTitle().isEmpty() && noteDto.getDescription().isEmpty())) {
@@ -69,14 +70,15 @@ public class NoteServiceImplementation implements NoteService {
 
 		notesRepository.save(note); // Storing Users Data in Database
 
-		return new Responses(Messages.OK, null, Messages.NOTE_CREATED);
+		return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ),
+				environment.getProperty("status.success.notecreated"), environment.getProperty("success.status"));
 	}
 
-	/**
-	 * @return Function to Update a note
-	 *
-	 *************************************************************************************************/
-	public Responses updateNote(@Valid int id, NoteDto updateNoteDto, String token) {
+/**
+ * @return Function to Update a note
+ *
+ *************************************************************************************************/
+	public Response updateNote(@Valid int id, NoteDto updateNoteDto, String token) {
 
 		if (updateNoteDto.getTitle().isEmpty() || updateNoteDto.getDescription().isEmpty()
 				|| (updateNoteDto.getTitle().isEmpty() && updateNoteDto.getDescription().isEmpty())) {
@@ -105,14 +107,15 @@ public class NoteServiceImplementation implements NoteService {
 
 		notesRepository.save(note);
 
-		return new Responses(Messages.OK, null, Messages.NOTE_UPDATED);
+		return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ),
+				environment.getProperty("status.success.noteupdated"), environment.getProperty("success.status"));
 	}
 
-	/**
-	 * @return Function to Delete a note
-	 *
-	 *************************************************************************************************/
-	public Responses deleteNote(int id, String token) {
+/**
+ * @return Function to Delete a note
+ *
+ *************************************************************************************************/
+	public Response deleteNote(int id, String token) {
 
 		String userEmail = tokenUtility.getUserToken(token);
 
@@ -132,13 +135,14 @@ public class NoteServiceImplementation implements NoteService {
 
 		notesRepository.delete(note);
 
-		return new Responses(Messages.OK, null, Messages.NOTE_DELETED);
+		return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ), 
+				environment.getProperty("status.success.notedeleted"), environment.getProperty("success.status"));
 	}
 
-	/**
-	 * @return Function get all notes
-	 *
-	 *************************************************************************************************/
+/**
+ * @return Function get all notes
+ *
+ *************************************************************************************************/
 	public List<Note> getAllNotes(String token) {
 
 		String usertoken = tokenUtility.getUserToken(token);
@@ -162,10 +166,10 @@ public class NoteServiceImplementation implements NoteService {
 		return note;
 	}
 
-	/**
-	 * @return Function to sort notes by title
-	 *
-	 *************************************************************************************************/
+/**
+ * @return Function to sort notes by title
+ *
+ *************************************************************************************************/
 	public List<Note> sortByTitle(String token) {
 		
 		String usertoken = tokenUtility.getUserToken(token);
@@ -188,10 +192,10 @@ public class NoteServiceImplementation implements NoteService {
 		return list;
 	}
 
-	/**
-	 * @return Function to sort notes by Description
-	 *
-	 *************************************************************************************************/
+/**
+ * @return Function to sort notes by Description
+ *
+ *************************************************************************************************/
 	public List<Note> sortByDescription(String token) {
 		
 		String usertoken = tokenUtility.getUserToken(token);
@@ -216,10 +220,10 @@ public class NoteServiceImplementation implements NoteService {
 		return list;
 	}
 
-	/**
-	 * @return Function to sort notes by Date
-	 *
-	 *************************************************************************************************/
+/**
+ * @return Function to sort notes by Date
+ *
+ *************************************************************************************************/
 	public List<Note> sortByDate(String token) {
 		
 		String usertoken = tokenUtility.getUserToken(token);
@@ -245,11 +249,11 @@ public class NoteServiceImplementation implements NoteService {
 		return list;
 	}
 	
-	/**
-	 * @return Function to pin and unpin the notes
-	 *
-	 *************************************************************************************************/
-	public Responses pinAndUnpin( int id,String token)
+/**
+ * @return Function to pin and unpin the notes
+ *
+ *************************************************************************************************/
+	public Response pinAndUnpin( int id,String token)
 	{
 		String usertoken = tokenUtility.getUserToken(token);
 		
@@ -264,22 +268,24 @@ public class NoteServiceImplementation implements NoteService {
 		{
 			note.setPin(true);
 			notesRepository.save(note);
-			return new  Responses(environment.getProperty("status.success.pin"),null,Integer.parseInt(environment.getProperty("status.success.code")));
+			return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ), 
+					environment.getProperty("status.success.pin"), environment.getProperty("success.status"));
 		}
 		else
 		{
 			note.setPin(false);
 			notesRepository.save(note);
-			return new  Responses(environment.getProperty("status.success.unpin"),null,Integer.parseInt(environment.getProperty("status.success.code")));
+			return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ),
+					environment.getProperty("status.success.unpin"), environment.getProperty("success.status"));
 		}
 	}
 	
 
-	/**
-	 * @return Function to archieve the notes
-	 *
-	 *************************************************************************************************/
-	public Responses archieve(int id, String token) {
+/**
+ * @return Function to archieve the notes
+ *
+ *************************************************************************************************/
+	public Response archieve(int id, String token) {
 		String usertoken = tokenUtility.getUserToken(token);
 
 		Note note = notesRepository.findById(id);
@@ -291,21 +297,22 @@ public class NoteServiceImplementation implements NoteService {
 		if (note.isArchieve() == false) {
 			note.setArchieve(true);
 			notesRepository.save(note);
-			return new Responses(environment.getProperty("status.success.archieve"), null,
-					Integer.parseInt(environment.getProperty("status.success.code")));
+			return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ), 
+					environment.getProperty("status.success.archieve"), environment.getProperty("success.status"));
+
 		} else {
 			note.setArchieve(false);
 			notesRepository.save(note);
-			return new Responses(environment.getProperty("status.success.disarchieve"), null,
-					Integer.parseInt(environment.getProperty("status.success.code")));
+			return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ),
+					environment.getProperty("status.success.disarchievee"), environment.getProperty("success.status"));
 		}
 	}
 
-	/**
-	 * @return Function to archieve the notes
-	 *
-	 *************************************************************************************************/
-	public Responses trash(int id, String token) {
+/**
+ * @return Function to archieve the notes
+ *
+ *************************************************************************************************/
+	public Response trash(int id, String token) {
 		String usertoken = tokenUtility.getUserToken(token);
 
 		Note note = notesRepository.findById(id);
@@ -318,14 +325,15 @@ public class NoteServiceImplementation implements NoteService {
 		if (note.isTrash() == false) {
 			note.setTrash(true);
 			notesRepository.save(note);
-			return new Responses(environment.getProperty("status.success.trash"), null,
-					Integer.parseInt(environment.getProperty("status.success.code")));
+			return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ), 
+					environment.getProperty("status.success.trash"), environment.getProperty("success.status"));
+	
 		} else {
 			note.setTrash(false);
 			notesRepository.save(note);
-			return new Responses(environment.getProperty("status.success.distrash"), null,
-					Integer.parseInt(environment.getProperty("status.success.code")));
-		}
+			return new Response(Integer.parseInt(environment.getProperty("http.status.ok.code") ), 
+					environment.getProperty("status.success.distrash"), environment.getProperty("success.status"));
+				}
 	}
 }
 
@@ -336,7 +344,7 @@ public class NoteServiceImplementation implements NoteService {
  * @return Function to find a note
  *
  ************************************************************************************************
- * public Responses findNote(int id, String token) { String userToken =
+ * public Response findNote(int id, String token) { String userToken =
  * tokenUtility.getUserToken(token);
  * 
  * if (userToken.isEmpty()) { throw new TokenException(Messages.INVALID_TOKEN);
@@ -349,7 +357,7 @@ public class NoteServiceImplementation implements NoteService {
  * 
  * Note note = notesRepository.findById(id);
  * 
- * return new Responses(Messages.OK, "User Registration ", note); }
+ * return new Response(Messages.OK, "User Registration ", note); }
  * 
  *//*
 	 * public List<Note> showUserNotes (int id, String token) { String usertoken =
@@ -357,4 +365,40 @@ public class NoteServiceImplementation implements NoteService {
 	 * TokenException (Messages. INVALID_TOKEN ); } User user = repository.
 	 * findByEmail( usertoken); Note note = notesRepository .findById(id) ; return
 	 * notesRepository .findAll(); }
+	 * 
+	 * 
+	 * 
+	 * 
 	 */
+
+
+
+/*@Override
+	public Response updateNote( @Valid int id ,  NoteDto noteDto, String token)
+	{
+		//NoteModel note =mapper.map(noteDto, NoteModel.class);
+		
+		String useremail = tokenUtility.decodeToken(token);
+		User user = repository.findByEmail(useremail);
+
+		if(user == null)
+		{
+
+			System.out.println("error exception thrown.");
+			throw new InvalidUserException(NoteUtility.USER_NOT_FOUND);
+		}
+		
+		
+		NoteModel noteupdate = nrepository.findById(id).
+				orElseThrow(() ->new IdNotFoundException(NoteUtility.NOTE_NOT_FOUND)) ;
+		
+		
+		//noteupdate.setUser(user); //not needed.
+		noteupdate.setTitle(noteDto.getTitle());
+		noteupdate.setDiscription(noteDto.getDiscription());
+		
+		nrepository.save(noteupdate);
+		
+		return new Response(200,"note updated","updated successfully");
+		
+	}*/
