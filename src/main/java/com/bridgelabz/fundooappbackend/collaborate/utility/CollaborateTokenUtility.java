@@ -13,7 +13,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
  *********************************************************************************************************/
 
 @Component
-public class TokenssUtility 
+public class CollaborateTokenUtility 
 {
 	private final String SECRET_KEY = "secret"; // itz not a good pratice to hardcode in the program.inReal scenario
 												// write this in application.properties file.

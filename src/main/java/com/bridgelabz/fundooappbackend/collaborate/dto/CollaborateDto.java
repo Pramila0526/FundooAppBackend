@@ -1,22 +1,32 @@
 package com.bridgelabz.fundooappbackend.collaborate.dto;
+import javax.validation.constraints.NotNull;
 /*********************************************************************************************************
  * @author 	:Pramila Mangesh Tawari
- * Purpose	:Collaborate DTO 
+ * Purpose	:Collaborate DTO
  *
  ***********************************************************************************************************/
-public class CollaborateDto {
-	private int noteId;
-	
+public class CollaborateDto
+{
+	@NotNull
 	private String receiverMail;
+	
+	@NotNull
+	private int noteID;
+	
 
-	public int getNoteId() {
-		return noteId;
+	public CollaborateDto()
+	{
+		
+	}
+			
+	public CollaborateDto(@NotNull String receiverMail, @NotNull int noteID) {
+		super();
+		this.receiverMail = receiverMail;
+		
+		this.noteID = noteID;
 	}
 
-	public void setNoteId(int noteId) {
-		this.noteId = noteId;
-	}
-
+	
 	public String getReceiverMail() {
 		return receiverMail;
 	}
@@ -25,19 +35,23 @@ public class CollaborateDto {
 		this.receiverMail = receiverMail;
 	}
 
+	
+
+	public int getNoteID() {
+		return noteID;
+	}
+
+	public void setNoteID(int noteID) {
+		this.noteID = noteID;
+	}
+
 	@Override
 	public String toString() {
-		return "CollaborateDto [noteid=" + noteId + ", receiverMail=" + receiverMail + "]";
+		return "CollaboratorDto [receiverMail=" + receiverMail +  ", noteID=" + noteID
+				+ "]";
 	}
+	
+	
+	
 
-	public CollaborateDto() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public CollaborateDto(int noteId, String receiverMail) {
-		super();
-		this.noteId = noteId;
-		this.receiverMail = receiverMail;
-	}	
 }

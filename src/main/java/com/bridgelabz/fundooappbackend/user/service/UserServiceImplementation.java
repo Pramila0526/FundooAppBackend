@@ -219,10 +219,10 @@ public class UserServiceImplementation implements UserService {
 		}
 	}
 
-	/**
-	 * @return Find User :- Particular user's data by the token
-	 *
-	 */
+/**
+ * @return Find User :- Particular user's data by the token
+ *
+ *******************************************************************************************/
 	public Response findUser(String token) 
 	{
 		String email = tokenutility.getUserToken(token);
@@ -234,10 +234,10 @@ public class UserServiceImplementation implements UserService {
 		return new Response(Messages.OK, "User Registration ", repository.findByEmail(email));
 	}
 
-	/**
-	 * @return Show All Users Method :- Showing the users's List
-	 *
-	 */
+/**
+ * @return Show All Users Method :- Showing the users's List
+ *
+ *******************************************************************************************/
 	public List<User> showAllUsers(String token) 
 	{
 		System.out.println("check");
